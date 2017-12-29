@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.jboss.gwt.elemento:elemento-template-processor:HEAD-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/gwt/elemento/elemento-template-processor/HEAD-SNAPSHOT/elemento-template-processor-HEAD-20171212.073002-5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/gwt/elemento/elemento-template-processor/HEAD-SNAPSHOT/elemento-template-processor-HEAD-20171212.073002-5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/gwt/elemento/elemento-template-processor/HEAD-SNAPSHOT/elemento-template-processor-HEAD-20171212.073002-5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

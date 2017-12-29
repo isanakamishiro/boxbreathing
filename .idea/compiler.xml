@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="boxbreathing-client" />
+        <module name="boxbreathing-server" />
+        <module name="boxbreathing-shared" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="boxbreathing" target="1.8" />
+      <module name="boxbreathing-client" target="1.8" />
+      <module name="boxbreathing-server" target="1.8" />
+      <module name="boxbreathing-shared" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

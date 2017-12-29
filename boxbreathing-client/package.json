@@ -1,0 +1,15 @@
+{
+  "name": "BoxBreathing",
+  "version": "0.0.1",
+  "description": "Service worker generator",
+  "main": "bin/sw-builder.js",
+  "dependencies": {
+    "handlebars": "^4.0.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "generate": "node bin/sw-builder.js"
+  },
+  "author": "isanakamishiro",
+  "license": "Apache 2.0"
+}

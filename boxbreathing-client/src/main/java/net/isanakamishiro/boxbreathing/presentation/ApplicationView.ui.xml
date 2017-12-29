@@ -1,0 +1,24 @@
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:m="urn:import:gwt.material.design.client.ui"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="urn:import:gwt.material.design.client.ui https://isanakamishiro.github.io/gmdschemas/2.0/gwt-material-ui.xsd">
+             <!--xsi:schemaLocation="urn:import:gwt.material.design.client.ui gwt-material-ui.xsd">-->
+
+    <m:MaterialPanel>
+<!--        <m:MaterialHeader>
+            <m:MaterialNavBar ui:field="navBar" activates="sidenav" backgroundColor="BLUE">
+                <m:MaterialNavBrand fontSize="1.2em" text="Box Breathing"/>
+            </m:MaterialNavBar>
+        </m:MaterialHeader>-->
+
+<!--        <m:MaterialSideNavPush m:id="sidenav" width="280">
+            <m:MaterialLink text="Home" iconType="HOME" href="#home"/>
+            <m:MaterialLink text="Account" iconType="ACCOUNT_CIRCLE" href="#account"/>
+            <m:MaterialLink text="Webp" iconType="IMAGE" href="#webp"/>
+            <m:MaterialLink text="Push Notification" iconType="SECURITY" href="#push_companion"/>
+        </m:MaterialSideNavPush>-->
+
+        <m:MaterialContainer ui:field="container"/>
+    </m:MaterialPanel>
+</ui:UiBinder>

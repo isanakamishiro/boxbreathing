@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.gwtmaterialdesign:gwt-material-table:2.1-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/gwtmaterialdesign/gwt-material-table/2.1-SNAPSHOT/gwt-material-table-2.1-20171218.113453-124.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/gwtmaterialdesign/gwt-material-table/2.1-SNAPSHOT/gwt-material-table-2.1-20171218.113453-124-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/gwtmaterialdesign/gwt-material-table/2.1-SNAPSHOT/gwt-material-table-2.1-20171218.113453-124-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

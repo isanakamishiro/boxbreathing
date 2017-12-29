@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.jboss.gwt.elemento:elemento-template-api:sources:HEAD-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/gwt/elemento/elemento-template-api/HEAD-SNAPSHOT/elemento-template-api-HEAD-20171212.072955-5-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/gwt/elemento/elemento-template-api/HEAD-SNAPSHOT/elemento-template-api-HEAD-20171212.072955-5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/gwt/elemento/elemento-template-api/HEAD-SNAPSHOT/elemento-template-api-HEAD-20171212.072955-5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

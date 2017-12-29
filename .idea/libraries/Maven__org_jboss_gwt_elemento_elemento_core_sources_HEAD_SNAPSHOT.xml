@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.jboss.gwt.elemento:elemento-core:sources:HEAD-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/gwt/elemento/elemento-core/HEAD-SNAPSHOT/elemento-core-HEAD-20171212.072952-18-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/gwt/elemento/elemento-core/HEAD-SNAPSHOT/elemento-core-HEAD-20171212.072952-18-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/jboss/gwt/elemento/elemento-core/HEAD-SNAPSHOT/elemento-core-HEAD-20171212.072952-18-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

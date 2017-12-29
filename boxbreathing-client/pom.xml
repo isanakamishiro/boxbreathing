@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>net.isanakamishiro</groupId>
+        <artifactId>boxbreathing</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>boxbreathing-client</artifactId>
+    <packaging>gwt-app</packaging>
+
+    <properties>
+        <appModuleName>net.isanakamishiro.boxbreathing.App</appModuleName>
+        <appModuleShortName>App</appModuleShortName>
+
+        <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+
+        <!--templating-->
+        <templating.package>test</templating.package>
+        <templating.name>Test</templating.name>
+        <templating.place>TEST</templating.place>
+
+        <!-- maven plugins versions -->
+        <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
+        <maven.resources.plugin.version>3.0.2</maven.resources.plugin.version>
+
+        <!--Dependency versions-->
+
+        <!--Slf4j-->
+        <slf4j.version>1.7.25</slf4j.version>
+
+        <!-- GWT -->
+        <gwt.version>2.8.2-rx1</gwt.version>
+        <!--GWTP-->
+        <gwtp.version>1.6</gwtp.version>
+        <gin.version>2.1.2</gin.version>
+        <!-- GWT Material -->
+        <gwt-material.version>2.1-SNAPSHOT</gwt-material.version>
+        <!--Elemental2-->
+        <elemental.version>1.0.0-beta-1</elemental.version>
+        <!--Elemento-->
+        <elemento.version>HEAD-SNAPSHOT</elemento.version>
+        <!--RxGwt-->
+        <rxgwt.version>HEAD-SNAPSHOT</rxgwt.version>
+
+        <!--Lombok-->
+        <lombok.version>1.16.18</lombok.version>
+
+        <!--Testing-->
+        <junit.platform.version>1.0.2</junit.platform.version>
+        <junit.jupiter.version>5.0.2</junit.jupiter.version>
+        <junit.vintage.version>4.12.2</junit.vintage.version>
+    </properties>
+
+    <!-- These must be here in this order because of missing guava-gwt snapshots in the JBoss Public Repository. -->
+    <repositories>
+        <!--        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>jboss</id>
+            <name>JBoss Public Repo</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>-->
+        <repository>
+            <id>sonatype-nexus-snapshot</id>
+            <name>Sonatype Nexus snapshot repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>rxjava-gwt-repo</id>
+            <url>https://raw.githubusercontent.com/intendia-oss/rxjava-gwt/mvn-repo/</url>
+        </repository>
+    </repositories>
+
+
+    <build>
+        <finalName>${project.name}</finalName>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+
+            <!--GWT-->
+            <plugin>
+                <groupId>net.ltgt.gwt.maven</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>1.0-rc-9</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipModule>true</skipModule>
+                    <moduleName>${appModuleName}</moduleName>
+                    <moduleShortName>${appModuleShortName}</moduleShortName>
+                    <failOnError>true</failOnError>
+                    <sourceLevel>1.8</sourceLevel>
+                    <compilerArgs>
+                        <arg>-compileReport</arg>
+                        <arg>-XcompilerMetrics</arg>
+                    </compilerArgs>
+                    <launcherDir>${webappDirectory}</launcherDir>
+                    <warDir>${webappDirectory}</warDir>
+                    <classpathScope>compile+runtime</classpathScope>
+                    <startupUrls>
+                        <startupUrl>index.html</startupUrl>
+                    </startupUrls>
+                    <jvmArgs>
+                        <arg>-Xmx2048m</arg>
+                        <arg>-Xms756m</arg>
+                        <!--<arg>-XX:CompileThreshold=1000</arg>-->
+                        <arg>-javaagent:${project.build.directory}/lombok.jar=ECJ</arg>
+                    </jvmArgs>
+                </configuration>
+            </plugin>
+
+            <!--Copy Lombok to target folder-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                    <version>${lombok.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <destFileName>lombok.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Copy webapp content to deploy folder -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.resources.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${webappDirectory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/webapp</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Service worker generator -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <nodeVersion>v9.0.0</nodeVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm generate</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <arguments>run-script generate ${project.build.finalName}</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/${project.build.directory}/generated-sources/java-templates</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven.deploy.plugin.version}</version>
+            </plugin>
+
+            <!--Templating-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>templating-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <sourceDirectory>${basedir}/src/main/java-templates</sourceDirectory>
+                    <outputDirectory>${project.build.directory}/generated-sources/java-templates</outputDirectory>
+                </configuration>
+            </plugin>
+
+            <!--Rename templates-->
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <fileSets>
+                        <fileSet>
+                            <sourceFile>${project.build.directory}/generated-sources/java-templates/templates/TemplateModule.java</sourceFile>
+                            <destinationFile>${project.build.directory}/generated-sources/java-templates/templates/${templating.name}Module.java</destinationFile>
+                        </fileSet>
+                        <fileSet>
+                            <sourceFile>${project.build.directory}/generated-sources/java-templates/templates/TemplatePresenter.java</sourceFile>
+                            <destinationFile>${project.build.directory}/generated-sources/java-templates/templates/${templating.name}Presenter.java</destinationFile>
+                        </fileSet>
+                        <fileSet>
+                            <sourceFile>${project.build.directory}/generated-sources/java-templates/templates/TemplateView.java</sourceFile>
+                            <destinationFile>${project.build.directory}/generated-sources/java-templates/templates/${templating.name}View.java</destinationFile>
+                        </fileSet>
+                        <fileSet>
+                            <sourceFile>${project.build.directory}/generated-sources/java-templates/templates/TemplateView.ui.xml</sourceFile>
+                            <destinationFile>${project.build.directory}/generated-sources/java-templates/templates/${templating.name}View.ui.xml</destinationFile>
+                        </fileSet>
+                        <fileSet>
+                            <sourceFile>${project.build.directory}/generated-sources/java-templates/templates</sourceFile>
+                            <destinationFile>${project.build.directory}/generated-sources/java-templates/${templating.package}</destinationFile>
+                        </fileSet>
+                    </fileSets>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt</artifactId>
+                <version>${gwt.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.elemental2</groupId>
+                <artifactId>elemental2-dom</artifactId>
+                <version>${elemental.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!--Shared librarly-->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>boxbreathing-shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>boxbreathing-shared</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
+        </dependency>
+
+        <!--GWT-->
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+            <version>${gwt.version}</version>
+        </dependency>
+
+        <!-- GWTP -->
+        <dependency>
+            <groupId>com.gwtplatform</groupId>
+            <artifactId>gwtp-mvp-client</artifactId>
+            <version>${gwtp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- GwtMaterial -->
+        <dependency>
+            <groupId>com.github.gwtmaterialdesign</groupId>
+            <artifactId>gwt-material</artifactId>
+            <version>${gwt-material.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gwtmaterialdesign</groupId>
+            <artifactId>gwt-material-themes</artifactId>
+            <version>${gwt-material.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gwtmaterialdesign</groupId>
+            <artifactId>gwt-material-addins</artifactId>
+            <version>${gwt-material.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gwtmaterialdesign</groupId>
+            <artifactId>gwt-material-table</artifactId>
+            <version>${gwt-material.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--Elemental2-->
+        <!--        <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-core</artifactId>
+            <version>${elemental.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.elemental2</groupId>
+            <artifactId>elemental2-dom</artifactId>
+            <version>${elemental.version}</version>
+        </dependency>-->
+
+        <!--Elemento-->
+        <!--        <dependency>
+            <groupId>org.jboss.gwt.elemento</groupId>
+            <artifactId>elemento-template-api</artifactId>
+            <version>${elemento.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.gwt.elemento</groupId>
+            <artifactId>elemento-template-api</artifactId>
+            <version>${elemento.version}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.gwt.elemento</groupId>
+            <artifactId>elemento-template-processor</artifactId>
+            <version>${elemento.version}</version>
+            <scope>provided</scope>
+        </dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.jboss.gwt.elemento</groupId>-->
+        <!--<artifactId>elemento-template</artifactId>-->
+        <!--<version>${elemento.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- DI -->
+        <dependency>
+            <groupId>com.google.gwt.inject</groupId>
+            <artifactId>gin</artifactId>
+            <version>${gin.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--Reactive extension-->
+        <dependency>
+            <groupId>com.intendia.gwt.rxgwt2</groupId>
+            <artifactId>rxgwt</artifactId>
+            <version>${rxgwt.version}</version>
+            <type>gwt-lib</type>
+        </dependency>
+
+        <!--Slf4j-->
+        <!--<dependency>-->
+        <!--<groupId>org.slf4j</groupId>-->
+        <!--<artifactId>slf4j-log4j12</artifactId>-->
+        <!--<version>${slf4j.version}</version>-->
+        <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+
+        <!--Testing-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Only required to run tests in an IDE that bundles an older version -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Only required to run tests in an IDE that bundles an older version -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Only required to run tests in an IDE that bundles an older version -->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit.vintage.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- To avoid compiler warnings about @API annotations in JUnit code -->
+        <dependency>
+            <groupId>org.apiguardian</groupId>
+            <artifactId>apiguardian-api</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>
