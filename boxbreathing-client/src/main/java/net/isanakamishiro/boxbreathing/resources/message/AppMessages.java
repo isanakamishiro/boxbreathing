@@ -25,4 +25,7 @@ public interface AppMessages extends Messages {
     @DefaultMessage("Hold your lungs empty for 4 seconds")
     String holdFromExhaleString();
 
+    @DefaultMessage("Start Box Breathing")
+    String startBoxBreathing();
+
 }

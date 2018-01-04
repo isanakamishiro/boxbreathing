@@ -19,7 +19,6 @@
  */
 package net.isanakamishiro.boxbreathing.presentation.home;
 
-import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.Presenter;
@@ -30,7 +29,6 @@ import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import gwt.material.design.client.pwa.PwaManager;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import java.util.concurrent.TimeUnit;
 import net.isanakamishiro.boxbreathing.presentation.ApplicationPresenter;
 import net.isanakamishiro.boxbreathing.presentation.NameTokens;
@@ -102,10 +100,10 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
         Observable<Long> timer = Observable.interval(1, TimeUnit.SECONDS);
         disposer.add(
                 Observable.merge(
-                        timer.filter(i -> (i % 16) == 0).doOnNext(p -> getView().showHoldFromInhaleStep()),
-                        timer.filter(i -> (i % 16) == 4).doOnNext(p -> getView().showExhaleStep()),
-                        timer.filter(i -> (i % 16) == 8).doOnNext(p -> getView().showHoldFromExhaleStep()),
-                        timer.filter(i -> (i % 16) == 12).doOnNext(p -> getView().showInhaleStep())
+                        timer.filter(i -> (i % 16) == 0).doOnNext(p -> getView().showInhaleStep()),
+                        timer.filter(i -> (i % 16) == 4).doOnNext(p -> getView().showHoldFromInhaleStep()),
+                        timer.filter(i -> (i % 16) == 8).doOnNext(p -> getView().showExhaleStep()),
+                        timer.filter(i -> (i % 16) == 12).doOnNext(p -> getView().showHoldFromExhaleStep())
 //                ).subscribe(p -> GWT.log(p.toString()))
                 ).subscribe()
         );
