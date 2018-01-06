@@ -21,10 +21,17 @@ package net.isanakamishiro.boxbreathing.presentation;
 
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewImpl;
+import com.intendia.rxgwt2.user.RxEvents;
+import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.ui.MaterialButton;
 import gwt.material.design.client.ui.MaterialContainer;
 import gwt.material.design.client.ui.MaterialNavBar;
+import gwt.material.design.client.ui.MaterialNavBrand;
+import gwt.material.design.client.ui.MaterialPanel;
+import io.reactivex.Observable;
 
 import javax.inject.Inject;
 
@@ -35,15 +42,52 @@ public class ApplicationView extends ViewImpl implements ApplicationPresenter.My
     }
 
     @UiField
+    MaterialPanel rootPanel;
+
+    @UiField
     MaterialContainer container;
 
-//    @UiField
-//    MaterialNavBar navBar;
+    @UiField
+    MaterialButton btnAbout;
+
+    @UiField
+    MaterialNavBar navBar;
+
+    @UiField
+    MaterialNavBrand navBarBrand;
 
     @Inject
     ApplicationView(
             Binder uiBinder) {
         initWidget(uiBinder.createAndBindUi(this));
         bindSlot(ApplicationPresenter.SLOT_MAIN, container);
+
+        initStyle();
+        initEventHadling();
     }
+
+    private void initStyle() {
+    }
+
+    private void initEventHadling() {
+        Observable.merge(RxEvents.click(btnAbout), RxEvents.touchEnd(btnAbout))
+                .subscribe(e -> Window.open(btnAbout.getHref(), "_blank", ""));
+    }
+
+    @Override
+    public void setBackgroundColorStyle(Color color) {
+
+        rootPanel.setBackgroundColor(color);
+        navBar.setBackgroundColor(color);
+
+        if (Color.WHITE.equals(color)) {
+            navBar.getNavMenu().setTextColor(Color.GREY);
+            navBarBrand.setTextColor(Color.GREY);
+        } else {
+            navBar.getNavMenu().setTextColor(Color.WHITE);
+            navBarBrand.setTextColor(Color.WHITE);
+        }
+    }
+
+
 }

@@ -19,9 +19,9 @@
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 
         <!--templating-->
-        <templating.package>test</templating.package>
-        <templating.name>Test</templating.name>
-        <templating.place>TEST</templating.place>
+        <templating.package>box</templating.package>
+        <templating.name>Box</templating.name>
+        <templating.place>BOX</templating.place>
 
         <!-- maven plugins versions -->
         <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>

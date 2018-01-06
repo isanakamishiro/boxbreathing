@@ -23,10 +23,15 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
 
 public interface AppResources extends ClientBundle {
+
     interface Normalize extends CssResource {
     }
 
     interface Style extends CssResource {
+    }
+
+    interface AnimatorStyle extends CssResource {
+        String slide_right();
     }
 
     @Source("css/normalize.gss")
@@ -34,4 +39,7 @@ public interface AppResources extends ClientBundle {
 
     @Source("css/style.gss")
     Style style();
+
+    @Source("css/animator.gss")
+    AnimatorStyle animator();
 }

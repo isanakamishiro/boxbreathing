@@ -15,12 +15,12 @@
         <include path="/**.jpg" />
         <include path="/**.jpeg" />
         <include path="/**.gif" />
-        <include path="/**.ico" />
+        <include path="/**.ico" expiration="1d" />
 
-        <include path="/**.ttf" />
-        <include path="/**.woff" />
-        <include path="/**.woff2" />
-        <include path="/**.eot" />
+        <include path="/**.ttf" expiration="1d" />
+        <include path="/**.woff" expiration="1d" />
+        <include path="/**.woff2" expiration="1d" />
+        <include path="/**.eot" expiration="1d" />
 
     </static-files>
 

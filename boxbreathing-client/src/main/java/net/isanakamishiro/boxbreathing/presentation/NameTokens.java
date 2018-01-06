@@ -22,4 +22,8 @@ package net.isanakamishiro.boxbreathing.presentation;
 public class NameTokens {
     public static final String HOME = "home";
     public static final String ABOUT = "about";
+
+    public static final String CIRCLE = "circle";
+    public static final String BOX = "box";
+
 }

@@ -20,16 +20,23 @@
 package net.isanakamishiro.boxbreathing.presentation;
 
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
+import net.isanakamishiro.boxbreathing.presentation.box.BoxModule;
+import net.isanakamishiro.boxbreathing.presentation.circle.CircleModule;
 import net.isanakamishiro.boxbreathing.presentation.home.HomeModule;
 
 public class ApplicationModule extends AbstractPresenterModule {
 
     @Override
     protected void configure() {
+
         install(new HomeModule());
+        install(new CircleModule());
+        install(new BoxModule());
+
 //        install(new WebpModule());
 //        install(new AccountModule());
 //        install(new PushCompanionModule());
+        bind(StyleConfigurator.class).asEagerSingleton();
 
         bindPresenter(ApplicationPresenter.class, ApplicationPresenter.MyView.class, ApplicationView.class,
                 ApplicationPresenter.MyProxy.class);

@@ -26,5 +26,6 @@ public class ResourceLoader {
     ResourceLoader(AppResources appResources) {
         appResources.normalize().ensureInjected();
         appResources.style().ensureInjected();
+        appResources.animator().ensureInjected();
     }
 }

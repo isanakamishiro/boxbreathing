@@ -19,6 +19,7 @@
  */
 package net.isanakamishiro.boxbreathing.di;
 
+import com.google.inject.Singleton;
 import com.gwtplatform.mvp.client.annotations.DefaultPlace;
 import com.gwtplatform.mvp.client.annotations.ErrorPlace;
 import com.gwtplatform.mvp.client.annotations.UnauthorizedPlace;
@@ -27,6 +28,7 @@ import com.gwtplatform.mvp.client.gin.DefaultModule;
 import net.isanakamishiro.boxbreathing.presentation.ApplicationModule;
 import net.isanakamishiro.boxbreathing.presentation.NameTokens;
 import net.isanakamishiro.boxbreathing.resources.ResourceLoader;
+import net.isanakamishiro.boxbreathing.resources.message.AppMessages;
 
 public class ClientModule extends AbstractPresenterModule {
 
@@ -36,6 +38,7 @@ public class ClientModule extends AbstractPresenterModule {
         install(new ApplicationModule());
 
         bind(ResourceLoader.class).asEagerSingleton();
+        bind(AppMessages.class).in(Singleton.class);
 
         // DefaultPlaceManager Places
         bindConstant().annotatedWith(DefaultPlace.class).to(NameTokens.HOME);

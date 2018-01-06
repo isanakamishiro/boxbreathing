@@ -25,11 +25,9 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
-import gwt.material.design.client.pwa.PwaManager;
-import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-import java.util.concurrent.TimeUnit;
+import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import net.isanakamishiro.boxbreathing.presentation.ApplicationPresenter;
 import net.isanakamishiro.boxbreathing.presentation.NameTokens;
 
@@ -37,24 +35,6 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
     interface MyView extends View {
 
-//        public static enum Step {
-//            INHALE,
-//            HOLD_FROM_INHALE,
-//            EXHALE,
-//            HOLD_FROM_EXHALE;
-//        }
-        void showInhaleStep();
-
-        void showHoldFromInhaleStep();
-
-        void showExhaleStep();
-
-        void showHoldFromExhaleStep();
-
-        void setCounting(int count);
-
-//        void changeStep(Step step);
-//        Observable<Step> onStepFinished();
     }
 
     @ProxyStandard
@@ -62,59 +42,37 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
     interface MyProxy extends ProxyPlace<HomePresenter> {
     }
 
-    CompositeDisposable disposer = new CompositeDisposable();
-
-    PwaManager manager = PwaManager.getInstance();
+    private PlaceManager placeManager;
 
     @Inject
     HomePresenter(
             EventBus eventBus,
             MyView view,
-            MyProxy proxy) {
+            MyProxy proxy,
+            PlaceManager placeManager) {
         super(eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN);
+
+        this.placeManager = placeManager;
     }
 
     @Override
     protected void onBind() {
         super.onBind();
-
-//        Observable<MyView.Step> event = getView().onStepFinished();
-//        timer.filter(i -> (i % 4) == 0).doOnNext(p -> getView().showHoldFromInhaleStep()).subscribe(p -> GWT.log(p.toString()));
-//        timer.filter(i -> (i % 4) == 1).doOnNext(p -> getView().showExhaleStep()).subscribe(p -> GWT.log(p.toString()));
-//        timer.filter(i -> (i % 4) == 2).doOnNext(p -> getView().showHoldFromExhaleStep()).subscribe(p -> GWT.log(p.toString()));
-//        timer.filter(i -> (i % 4) == 3).doOnNext(p -> getView().showInhaleStep()).subscribe(p -> GWT.log(p.toString()));
-//        Observable.merge(
-//                event.filter(step -> step == INHALE).doOnNext(p -> getView().showHoldFromInhaleStep()),
-//                event.filter(step -> step == HOLD_FROM_INHALE).doOnNext(p -> getView().showExhaleStep()),
-//                event.filter(step -> step == EXHALE).doOnNext(p -> getView().showHoldFromExhaleStep()),
-//                event.filter(step -> step == HOLD_FROM_EXHALE).doOnNext(p -> getView().showInhaleStep())
-////        ).subscribe(p -> GWT.log(p.toString()));
-//        ).subscribe();
     }
 
     @Override
     protected void onReveal() {
+        super.onReveal();
 
-        disposer.clear();
-
-        Observable<Long> timer = Observable.interval(1, TimeUnit.SECONDS);
-        disposer.add(
-                Observable.merge(
-                        timer.filter(i -> (i % 16) == 0).doOnNext(p -> getView().showInhaleStep()),
-                        timer.filter(i -> (i % 16) == 4).doOnNext(p -> getView().showHoldFromInhaleStep()),
-                        timer.filter(i -> (i % 16) == 8).doOnNext(p -> getView().showExhaleStep()),
-                        timer.filter(i -> (i % 16) == 12).doOnNext(p -> getView().showHoldFromExhaleStep())
-//                ).subscribe(p -> GWT.log(p.toString()))
-                ).subscribe()
-        );
-        disposer.add(
-                timer.map(v -> v % 4 + 1).subscribe(v -> getView().setCounting(v.intValue()))
-        );
+        move(NameTokens.CIRCLE);
     }
 
-    @Override
-    protected void onHide() {
-        disposer.clear();
+    private void move(String token) {
+        PlaceRequest placeRequest = new PlaceRequest.Builder()
+                .nameToken(token)
+                .build();
+
+        placeManager.revealPlace(placeRequest);
     }
 
 }

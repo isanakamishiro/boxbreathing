@@ -28,6 +28,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.presenter.slots.NestedSlot;
 import com.gwtplatform.mvp.client.proxy.Proxy;
+import gwt.material.design.client.constants.Color;
 import gwt.material.design.client.pwa.PwaManager;
 import gwt.material.design.client.pwa.serviceworker.DefaultServiceWorkerManager;
 
@@ -36,6 +37,7 @@ public class ApplicationPresenter
 
     interface MyView extends View {
 
+        void setBackgroundColorStyle(Color color);
     }
 
     public static final NestedSlot SLOT_MAIN = new NestedSlot();
@@ -45,14 +47,20 @@ public class ApplicationPresenter
 
     }
 
-    public DefaultServiceWorkerManager serviceWorkerManager;
+    private DefaultServiceWorkerManager serviceWorkerManager;
+    private StyleConfigurator styleConfigurator;
 
     @Inject
     ApplicationPresenter(
             EventBus eventBus,
             MyView view,
-            MyProxy proxy) {
+            MyProxy proxy,
+            DefaultServiceWorkerManager serviceWorkerManager,
+            StyleConfigurator styleConfigurator) {
         super(eventBus, view, proxy, RevealType.Root);
+
+        this.serviceWorkerManager = serviceWorkerManager;
+        this.styleConfigurator = styleConfigurator;
     }
 
     @Override
@@ -61,6 +69,7 @@ public class ApplicationPresenter
 
         removeSplashScreen();
         initPwa();
+        initEvents();
     }
 
     public void removeSplashScreen() {
@@ -68,6 +77,11 @@ public class ApplicationPresenter
         if (splashElement != null) {
             splashElement.removeFromParent();
         }
+    }
+
+    protected void initEvents() {
+        styleConfigurator.backgroundColorStyle()
+                .subscribe(getView()::setBackgroundColorStyle);
     }
 
     protected void initPwa() {
