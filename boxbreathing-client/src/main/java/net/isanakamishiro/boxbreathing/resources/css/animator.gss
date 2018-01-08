@@ -8,9 +8,24 @@ and open the template in the editor.
     Author     : isana
 */
 
-.slide_right {
-	-webkit-animation: slide-right 4s both;
-	        animation: slide-right 4s both;
+.box_top_left {
+    -webkit-animation: slide-right-on-top 4s both normal;
+            animation: slide-right-on-top 4s both normal;
+}
+
+.box_top_right {
+    -webkit-animation: slide-bottom-on-right 4s both normal;
+            animation: slide-bottom-on-right 4s both normal;
+}
+
+.box_bottom_right {
+    -webkit-animation: slide-left-on-bottom 4s both normal;
+            animation: slide-left-on-bottom 4s both normal;
+}
+
+.box_bottom_left {
+    -webkit-animation: slide-top-on-left 4s both normal;
+            animation: slide-top-on-left 4s both normal;
 }
 
 /* ----------------------------------------------
@@ -23,24 +38,86 @@ and open the template in the editor.
  * animation slide-right
  * ----------------------------------------
  */
-@-webkit-keyframes slide-right {
+@-webkit-keyframes slide-right-on-top {
   0% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
+    -webkit-transform: translateX(-90px) translateY(-90px);
+            transform: translateX(-90px) translateY(-90px);
   }
   100% {
-    -webkit-transform: translateX(200px);
-            transform: translateX(200px);
+    -webkit-transform: translateX(90px) translateY(-90px);
+            transform: translateX(90px) translateY(-90px);
   }
 }
-@keyframes slide-right {
+@keyframes slide-right-on-top {
   0% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
+    -webkit-transform: translateX(-90px) translateY(-90px);
+            transform: translateX(-90px) translateY(-90px);
   }
   100% {
-    -webkit-transform: translateX(200px);
-            transform: translateX(200px);
+    -webkit-transform: translateX(90px) translateY(-90px);
+            transform: translateX(90px) translateY(-90px);
   }
 }
 
+@-webkit-keyframes slide-bottom-on-right {
+  0% {
+    -webkit-transform: translateX(90px) translateY(-90px);
+            transform: translateX(90px) translateY(-90px);
+  }
+  100% {
+    -webkit-transform: translateX(90px) translateY(90px);
+            transform: translateX(90px) translateY(90px);
+  }
+}
+@keyframes slide-bottom-on-right {
+  0% {
+    -webkit-transform: translateX(90px) translateY(-90px);
+            transform: translateX(90px) translateY(-90px);
+  }
+  100% {
+    -webkit-transform: translateX(90px) translateY(90px);
+            transform: translateX(90px) translateY(90px);
+  }
+}
+
+@-webkit-keyframes slide-left-on-bottom {
+  0% {
+    -webkit-transform: translateX(90px) translateY(90px);
+            transform: translateX(90px) translateY(90px);
+  }
+  100% {
+    -webkit-transform: translateX(-90px) translateY(90px);
+            transform: translateX(-90px) translateY(90px);
+  }
+}
+@keyframes slide-left-on-bottom {
+  0% {
+    -webkit-transform: translateX(90px) translateY(90px);
+            transform: translateX(90px) translateY(90px);
+  }
+  100% {
+    -webkit-transform: translateX(-90px) translateY(90px);
+            transform: translateX(-90px) translateY(90px);
+  }
+}
+
+@-webkit-keyframes slide-top-on-left {
+  0% {
+    -webkit-transform: translateX(-90px) translateY(90px);
+            transform: translateX(-90px) translateY(90px);
+  }
+  100% {
+    -webkit-transform: translateX(-90px) translateY(-90px);
+            transform: translateX(-90px) translateY(-90px);
+  }
+}
+@keyframes slide-top-on-left {
+  0% {
+    -webkit-transform: translateX(-90px) translateY(90px);
+            transform: translateX(-90px) translateY(90px);
+  }
+  100% {
+    -webkit-transform: translateX(-90px) translateY(-90px);
+            transform: translateX(-90px) translateY(-90px);
+  }
+}

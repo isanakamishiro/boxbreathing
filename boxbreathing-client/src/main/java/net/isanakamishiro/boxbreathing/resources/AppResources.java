@@ -31,7 +31,15 @@ public interface AppResources extends ClientBundle {
     }
 
     interface AnimatorStyle extends CssResource {
-        String slide_right();
+
+        String box_top_left();
+
+        String box_top_right();
+
+        String box_bottom_right();
+
+        String box_bottom_left();
+
     }
 
     @Source("css/normalize.gss")

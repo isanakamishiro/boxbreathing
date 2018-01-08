@@ -5,6 +5,7 @@
              xsi:schemaLocation="urn:import:gwt.material.design.client.ui https://isanakamishiro.github.io/gmdschemas/2.0/gwt-material-ui.xsd">
 
     <ui:with field="messages" type="net.isanakamishiro.boxbreathing.resources.message.AppMessages" />
+    <ui:with field="animator" type="net.isanakamishiro.boxbreathing.resources.AppResources.AnimatorStyle" />
 
     <ui:style>
         .top_panel {
@@ -13,17 +14,19 @@
 
         .box_panel {
         display: inline-block;
-        width: 208px;
-        height: 208px;
+        width: 220px;
+        height: 220px;
         text-align:center;
-        line-height: 208px;
+        line-height: 220px;
         vertical-align: middle;
         border: medium dashed #ffffff;
         }
 
         .box {
-        transform: translateX(-90px);
-
+        width : 20px;
+        height : 20px;
+        border: medium solid #ffffff;
+        border-radius: 4px;
         }
 
         .outer_box_panel {
@@ -33,8 +36,8 @@
         bottom: 0;
         left: 0;
         margin: auto;
-        width: 208px;
-        height: 208px;
+        width: 220px;
+        height: 50px;
         }
 
     </ui:style>
@@ -45,17 +48,18 @@
                 <m:MaterialPanel textAlign="CENTER" layoutPosition="RELATIVE">
 
                     <m:MaterialPanel addStyleNames="{style.box_panel}" >
-                        <m:MaterialIcon ui:field="breathingImage" opacity="1.0"
-                                        iconType="CHECK_BOX_OUTLINE_BLANK" iconColor="WHITE" addStyleNames="{style.box}"/>
+                        <m:MaterialIcon ui:field="breathingImage" opacity="0.0"
+                                        addStyleNames="{style.box}"/>
                     </m:MaterialPanel>
 
-                    <m:MaterialPanel >
-                        <m:MaterialLabel ui:field="countLabel" text="" textColor="BLUE" fontSize="2.4em"/>
+                    <m:MaterialPanel addStyleNames="{style.outer_box_panel}">
+                        <m:MaterialLabel ui:field="countLabel" text=""
+                                         textColor="WHITE" fontSize="2.4em"/>
                     </m:MaterialPanel>
 
                 </m:MaterialPanel>
 
-                <m:MaterialLabel ui:field="stepLabel" text="Starting..." textColor="BLUE" fontSize="0.8em" marginTop="20" width="100%"/>
+                <m:MaterialLabel ui:field="stepLabel" text="Starting..." textColor="WHITE" fontSize="0.8em" marginTop="20" width="100%"/>
 
             </m:MaterialPanel>
 

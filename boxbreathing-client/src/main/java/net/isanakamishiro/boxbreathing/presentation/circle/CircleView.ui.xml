@@ -52,7 +52,7 @@
         <m:MaterialColumn grid="s12 m8 l6" offset="m2 l3">
             <m:MaterialPanel ui:field="onlinePanel" textAlign="CENTER" visible="true">
                 <m:MaterialPanel textAlign="CENTER" layoutPosition="RELATIVE">
-                    <m:MaterialIcon ui:field="breathingImage" textColor="BLUE_DARKEN_1" opacity="0.0" addStyleNames="{style.circle}"/>
+                    <m:MaterialIcon ui:field="breathingImage" opacity="0.0" addStyleNames="{style.circle}"/>
                     <m:MaterialPanel addStyleNames="{style.counter_panel}" >
                         <m:MaterialLabel ui:field="countLabel" text="" textColor="BLUE" fontSize="2.4em"/>
                     </m:MaterialPanel>
@@ -60,7 +60,7 @@
                         <m:MaterialIcon opacity="0.2" addStyleNames="{style.circle}"/>
                     </m:MaterialPanel>
                 </m:MaterialPanel>
-                <m:MaterialLabel ui:field="stepLabel" text="Starting..." textColor="BLUE" fontSize="0.8em" marginTop="20" width="100%"/>
+                <m:MaterialLabel ui:field="stepLabel" text="" textColor="BLUE" fontSize="0.8em" marginTop="20" width="100%"/>
             </m:MaterialPanel>
 
         </m:MaterialColumn>

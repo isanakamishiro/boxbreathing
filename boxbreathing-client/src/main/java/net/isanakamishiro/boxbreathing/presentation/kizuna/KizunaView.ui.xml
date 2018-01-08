@@ -1,0 +1,17 @@
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:m="urn:import:gwt.material.design.client.ui"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="urn:import:gwt.material.design.client.ui https://isanakamishiro.github.io/gmdschemas/2.0/gwt-material-ui.xsd">
+
+    <ui:with field="messages" type="net.isanakamishiro.boxbreathing.resources.message.AppMessages" />
+
+    <m:MaterialPanel ui:field="mainPanel" backgroundColor="GREY_DARKEN_1" height="100%">
+        <g:HTMLPanel height="100%">
+            <div ui:field="canvasPanel" style="height:100%">
+            </div>
+        </g:HTMLPanel>
+    </m:MaterialPanel>
+
+</ui:UiBinder>

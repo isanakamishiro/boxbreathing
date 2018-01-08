@@ -13,9 +13,11 @@
             </m:MaterialNavBar>
         </m:MaterialHeader>
 
-        <m:MaterialSideNavPush m:id="sidenav" width="220" closeOnClick="true">
-            <m:MaterialLink text="Circle" iconType="HOME" href="#circle"/>
-            <m:MaterialLink text="Box" iconType="HOME" href="#box"/>
+        <m:MaterialSideNavPush m:id="sidenav" width="220" closeOnClick="true" showOnAttach="false">
+            <m:MaterialLink text="Circle" iconType="ALL_OUT" href="#circle"/>
+            <m:MaterialLink text="Box" iconType="CHECK_BOX_OUTLINE_BLANK" href="#box"/>
+            <m:MaterialLink text="Kizuna" iconType="ACCESSIBILITY" href="#kizuna"/>
+            <!--<m:MaterialLink text="Box" iconType="CHECK_BOX_OUTLINE_BLANK" href="#box"/>-->
         </m:MaterialSideNavPush>
 
         <m:MaterialContainer ui:field="container" paddingTop="64" paddingBottom="12" height="100%"/>

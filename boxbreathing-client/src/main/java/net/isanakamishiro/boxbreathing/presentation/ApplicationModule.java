@@ -23,6 +23,7 @@ import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 import net.isanakamishiro.boxbreathing.presentation.box.BoxModule;
 import net.isanakamishiro.boxbreathing.presentation.circle.CircleModule;
 import net.isanakamishiro.boxbreathing.presentation.home.HomeModule;
+import net.isanakamishiro.boxbreathing.presentation.kizuna.KizunaModule;
 
 public class ApplicationModule extends AbstractPresenterModule {
 
@@ -32,6 +33,7 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new HomeModule());
         install(new CircleModule());
         install(new BoxModule());
+        install(new KizunaModule());
 
 //        install(new WebpModule());
 //        install(new AccountModule());

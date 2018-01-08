@@ -230,7 +230,7 @@
                 <version>${appengine.maven.plugin.version}</version>
                 <configuration>
                     <stage.enableJarClasses>true</stage.enableJarClasses>
-                    <deploy.version>${gae.deploy.version}</deploy.version>
+                    <!--<deploy.version>${gae.deploy.version}</deploy.version>-->
                 </configuration>
             </plugin>
 

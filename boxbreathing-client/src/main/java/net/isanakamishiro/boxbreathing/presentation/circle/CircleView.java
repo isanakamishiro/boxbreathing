@@ -40,7 +40,7 @@ public class CircleView extends ViewImpl implements CirclePresenter.MyView {
     @UiField(provided = true)
     AppMessages messages;
 
-    private Color defaultColor = Color.BLACK;
+    private static final Color MOVING_COLOR = Color.BLUE_DARKEN_1;
     private static final Color PAUSED_COLOR = Color.GREY_DARKEN_1;
     private StyleConfigurator styleConfigurator;
 
@@ -58,13 +58,17 @@ public class CircleView extends ViewImpl implements CirclePresenter.MyView {
     @Override
     public void initStyles() {
         styleConfigurator.setBackgroundColorStyle(mainPanel.getBackgroundColor());
+
+        breathingImage.setOpacity(0.0);
+        countLabel.setText("");
+        stepLabel.setText(messages.starting());
     }
 
     @Override
     public void showInhaleStep() {
         setStepLabel(messages.inhaleString());
         changeImageOpacity(1.0);
-        changeImageColor(defaultColor);
+        changeImageColor(MOVING_COLOR);
         showStepIconAnimation(Transition.ZOOMIN);
     }
 
@@ -79,7 +83,7 @@ public class CircleView extends ViewImpl implements CirclePresenter.MyView {
     public void showExhaleStep() {
         setStepLabel(messages.exhaleString());
         changeImageOpacity(1.0);
-        changeImageColor(defaultColor);
+        changeImageColor(MOVING_COLOR);
         showStepIconAnimation(Transition.ZOOMOUT);
     }
 
@@ -142,13 +146,6 @@ public class CircleView extends ViewImpl implements CirclePresenter.MyView {
         countLabel.setText(String.valueOf(count));
         animation.animate(countLabel);
 
-    }
-
-    @Override
-    protected void onAttach() {
-        super.onAttach();
-
-        this.defaultColor = breathingImage.getTextColor();
     }
 
 }

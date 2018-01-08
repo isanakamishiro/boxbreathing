@@ -19,9 +19,9 @@
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 
         <!--templating-->
-        <templating.package>box</templating.package>
-        <templating.name>Box</templating.name>
-        <templating.place>BOX</templating.place>
+        <templating.package>kizuna</templating.package>
+        <templating.name>Kizuna</templating.name>
+        <templating.place>KIZUNA</templating.place>
 
         <!-- maven plugins versions -->
         <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
@@ -40,7 +40,7 @@
         <!-- GWT Material -->
         <gwt-material.version>2.1-SNAPSHOT</gwt-material.version>
         <!--Elemental2-->
-        <elemental.version>1.0.0-beta-1</elemental.version>
+        <elemental.version>1.0.0-RC1</elemental.version>
         <!--Elemento-->
         <elemento.version>HEAD-SNAPSHOT</elemento.version>
         <!--RxGwt-->
@@ -54,6 +54,10 @@
         <junit.jupiter.version>5.0.2</junit.jupiter.version>
         <junit.vintage.version>4.12.2</junit.vintage.version>
     </properties>
+
+    <prerequisites>
+        <maven>3.5</maven>
+    </prerequisites>
 
     <!-- These must be here in this order because of missing guava-gwt snapshots in the JBoss Public Repository. -->
     <repositories>
@@ -113,6 +117,8 @@
                     <compilerArgs>
                         <arg>-compileReport</arg>
                         <arg>-XcompilerMetrics</arg>
+                        <arg>-optimize</arg>
+                        <arg>9</arg>
                     </compilerArgs>
                     <launcherDir>${webappDirectory}</launcherDir>
                     <warDir>${webappDirectory}</warDir>
@@ -278,6 +284,27 @@
                     </fileSets>
                 </configuration>
             </plugin>
+            <!--check versions-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>display-dependency-updates</goal>
+                            <goal>display-plugin-updates</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!--                <configuration>
+                    <excludes>
+                        <exclude>javax.servlet:javax.servlet-api</exclude>
+                        <exclude>com.google.guava:guava</exclude>  avoid android version
+                    </excludes>
+                </configuration>-->
+            </plugin>
 
         </plugins>
     </build>
@@ -359,8 +386,16 @@
             <scope>provided</scope>
         </dependency>
 
+        <!--gwt-jsinterop-threejs-->
+        <dependency>
+            <groupId>de.pesse.gwt.jsinterop.threejs</groupId>
+            <artifactId>jsinterop-threejs</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!--Elemental2-->
-        <!--        <dependency>
+        <dependency>
             <groupId>com.google.elemental2</groupId>
             <artifactId>elemental2-core</artifactId>
             <version>${elemental.version}</version>
@@ -369,7 +404,7 @@
             <groupId>com.google.elemental2</groupId>
             <artifactId>elemental2-dom</artifactId>
             <version>${elemental.version}</version>
-        </dependency>-->
+        </dependency>
 
         <!--Elemento-->
         <!--        <dependency>

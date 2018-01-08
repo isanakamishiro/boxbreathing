@@ -25,5 +25,7 @@ public class NameTokens {
 
     public static final String CIRCLE = "circle";
     public static final String BOX = "box";
+    public static final String KIZUNA = "kizuna";
+    public static final String MIRAI = "mirai";
 
 }
