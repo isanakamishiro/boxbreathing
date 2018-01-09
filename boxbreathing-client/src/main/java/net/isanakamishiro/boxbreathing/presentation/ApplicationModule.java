@@ -24,6 +24,7 @@ import net.isanakamishiro.boxbreathing.presentation.box.BoxModule;
 import net.isanakamishiro.boxbreathing.presentation.circle.CircleModule;
 import net.isanakamishiro.boxbreathing.presentation.home.HomeModule;
 import net.isanakamishiro.boxbreathing.presentation.kizuna.KizunaModule;
+import net.isanakamishiro.boxbreathing.presentation.mirai.MiraiModule;
 
 public class ApplicationModule extends AbstractPresenterModule {
 
@@ -34,6 +35,7 @@ public class ApplicationModule extends AbstractPresenterModule {
         install(new CircleModule());
         install(new BoxModule());
         install(new KizunaModule());
+        install(new MiraiModule());
 
 //        install(new WebpModule());
 //        install(new AccountModule());

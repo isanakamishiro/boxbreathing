@@ -1,19 +1,16 @@
 package net.isanakamishiro.boxbreathing.presentation.kizuna;
 
 import com.google.gwt.core.client.GWT;
-import net.isanakamishiro.boxbreathing.presentation.kizuna.jsinterop.dom.Window;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.dom.Window;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.xhr.client.XMLHttpRequest;
 import com.gwtplatform.mvp.client.ViewImpl;
 import de.pesse.gwt.jsinterop.threeJs.cameras.PerspectiveCamera;
 import de.pesse.gwt.jsinterop.threeJs.core.Clock;
 import de.pesse.gwt.jsinterop.threeJs.lights.AmbientLight;
 import de.pesse.gwt.jsinterop.threeJs.lights.DirectionalLight;
-import de.pesse.gwt.jsinterop.threeJs.loaders.OnErrorCallback;
-import de.pesse.gwt.jsinterop.threeJs.loaders.OnProgressCallback;
 import de.pesse.gwt.jsinterop.threeJs.objects.Mesh;
 import de.pesse.gwt.jsinterop.threeJs.renderers.WebGLRenderer;
 import de.pesse.gwt.jsinterop.threeJs.renderers.WebGLRendererParameters;
@@ -25,11 +22,11 @@ import gwt.material.design.client.ui.MaterialPanel;
 
 import javax.inject.Inject;
 import net.isanakamishiro.boxbreathing.presentation.StyleConfigurator;
-import net.isanakamishiro.boxbreathing.presentation.kizuna.jsinterop.threejs.core.Color;
-import net.isanakamishiro.boxbreathing.presentation.kizuna.jsinterop.threejs.effects.OutlineEffect;
-import net.isanakamishiro.boxbreathing.presentation.kizuna.jsinterop.threejs.helper.MMDHelper;
-import net.isanakamishiro.boxbreathing.presentation.kizuna.jsinterop.threejs.loader.MMDLoader;
-import net.isanakamishiro.boxbreathing.presentation.kizuna.jsinterop.threejs.stats.Stats;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.core.Color;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.effects.OutlineEffect;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.helper.MMDHelper;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.loader.MMDLoader;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.stats.Stats;
 import net.isanakamishiro.boxbreathing.resources.message.AppMessages;
 
 public class KizunaView extends ViewImpl implements KizunaPresenter.MyView {
@@ -65,7 +62,7 @@ public class KizunaView extends ViewImpl implements KizunaPresenter.MyView {
     @UiField(provided = true)
     AppMessages messages;
 
-    private StyleConfigurator styleConfigurator;
+    private final StyleConfigurator styleConfigurator;
 
 //    private AnimationFrameCallback callback;
     @Inject
@@ -123,10 +120,10 @@ public class KizunaView extends ViewImpl implements KizunaPresenter.MyView {
         helper = new MMDHelper();
         MMDLoader loader = new MMDLoader();
 
-        OnProgressCallback onProgress = (XMLHttpRequest request) -> {
+        MMDLoader.OnProgressCallback onProgress = xhr -> {
         };
 
-        OnErrorCallback onError = () -> {
+        MMDLoader.OnErrorCallback onError = error -> {
         };
 
         loader.load(MODEL_FILE, VMD_FILES, obj -> {
@@ -151,7 +148,7 @@ public class KizunaView extends ViewImpl implements KizunaPresenter.MyView {
                 .canvas(canvas)
                 .build());
 
-        renderer.setPixelRatio((float) w / (float) h);
+        renderer.setPixelRatio(Window.getDevicePixelRatio());
         renderer.setSize(w, h);
 
         // Effect

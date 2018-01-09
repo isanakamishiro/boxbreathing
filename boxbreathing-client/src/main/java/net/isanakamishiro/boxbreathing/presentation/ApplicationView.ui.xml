@@ -17,6 +17,7 @@
             <m:MaterialLink text="Circle" iconType="ALL_OUT" href="#circle"/>
             <m:MaterialLink text="Box" iconType="CHECK_BOX_OUTLINE_BLANK" href="#box"/>
             <m:MaterialLink text="Kizuna" iconType="ACCESSIBILITY" href="#kizuna"/>
+            <m:MaterialLink text="Mirai" iconType="ACCESSIBILITY" href="#mirai"/>
             <!--<m:MaterialLink text="Box" iconType="CHECK_BOX_OUTLINE_BLANK" href="#box"/>-->
         </m:MaterialSideNavPush>
 
