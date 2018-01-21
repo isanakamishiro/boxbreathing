@@ -5,15 +5,15 @@
  */
 package net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.helper;
 
-import de.pesse.gwt.jsinterop.threeJs.ThreeJsStatics;
-import de.pesse.gwt.jsinterop.threeJs.objects.Mesh;
 import jsinterop.annotations.JsType;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.PackageInfo;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.objects.Mesh;
 
 /**
  *
  * @author isana
  */
-@JsType(namespace = ThreeJsStatics.PACKAGE_NAME, isNative = true)
+@JsType(namespace = PackageInfo.THREEJS_PACKAGE_NAME,  isNative = true)
 public class MMDHelper {
 
     public native void add(Mesh mesh);

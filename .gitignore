@@ -3,3 +3,4 @@
 *.iml
 **/node/
 **/node_modules/
+/boxbreathing-server/src/main/webapp/models/

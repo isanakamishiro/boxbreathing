@@ -7,14 +7,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewImpl;
-import de.pesse.gwt.jsinterop.threeJs.cameras.PerspectiveCamera;
-import de.pesse.gwt.jsinterop.threeJs.core.Clock;
-import de.pesse.gwt.jsinterop.threeJs.lights.AmbientLight;
-import de.pesse.gwt.jsinterop.threeJs.lights.DirectionalLight;
-import de.pesse.gwt.jsinterop.threeJs.objects.Mesh;
-import de.pesse.gwt.jsinterop.threeJs.renderers.WebGLRenderer;
-import de.pesse.gwt.jsinterop.threeJs.renderers.WebGLRendererParameters;
-import de.pesse.gwt.jsinterop.threeJs.scenes.Scene;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLCanvasElement;
 import elemental2.dom.HTMLDivElement;
@@ -22,10 +14,17 @@ import gwt.material.design.client.ui.MaterialPanel;
 
 import javax.inject.Inject;
 import net.isanakamishiro.boxbreathing.presentation.StyleConfigurator;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.cameras.PerspectiveCamera;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.core.Clock;
 import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.core.Color;
 import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.effects.OutlineEffect;
 import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.helper.MMDHelper;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.lights.AmbientLight;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.lights.DirectionalLight;
 import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.loader.MMDLoader;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.objects.Mesh;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.renderers.WebGLRenderer;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.scenes.Scene;
 import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.stats.Stats;
 import net.isanakamishiro.boxbreathing.resources.message.AppMessages;
 
@@ -84,7 +83,7 @@ public class KizunaView extends ViewImpl implements KizunaPresenter.MyView {
 
         // Scene
         scene = new Scene();
-        scene.background = new Color();
+        scene.setBackgroundColor(new Color());
 
         // Stats
         stats = new Stats();
@@ -99,10 +98,10 @@ public class KizunaView extends ViewImpl implements KizunaPresenter.MyView {
         canvasPanel.appendChild(canvas);
 
         // Lighting
-        AmbientLight ambientLight = new AmbientLight(0x666666);
-        DirectionalLight light1 = new DirectionalLight(0x887766, 0.5);
+        AmbientLight ambientLight = new AmbientLight(Color.valueOf(0x666666));
+        DirectionalLight light1 = new DirectionalLight(Color.valueOf(0x887766), 0.5);
         light1.position.set(-50, 15, 30);
-        DirectionalLight light2 = new DirectionalLight(0x887766, 0.5);
+        DirectionalLight light2 = new DirectionalLight(Color.valueOf(0x887766), 0.5);
         light2.position.set(50, 15, 30);
 
         scene.add(ambientLight, light1, light2);
@@ -144,7 +143,7 @@ public class KizunaView extends ViewImpl implements KizunaPresenter.MyView {
         }, onProgress, onError);
 
         // Renderer
-        renderer = new WebGLRenderer(new WebGLRendererParameters.Builder()
+        renderer = new WebGLRenderer(WebGLRenderer.WebGLInitializeParameters.builder()
                 .canvas(canvas)
                 .build());
 

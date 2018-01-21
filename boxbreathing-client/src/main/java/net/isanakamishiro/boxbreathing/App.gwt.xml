@@ -18,7 +18,7 @@
 
     <inherits name="com.intendia.rxgwt2.RxUser"/>
 
-    <inherits name="de.pesse.gwt.jsinterop.JsInteropThreeJs"/>
+    <!--<inherits name="de.pesse.gwt.jsinterop.JsInteropThreeJs"/>-->
     <!--    <set-property name="gwt.logging.enabled" value="TRUE"/>
     <set-property name="gwt.logging.consoleHandler" value="ENABLED"/>
     <set-property name="gwt.logging.logLevel" value="INFO"/>-->

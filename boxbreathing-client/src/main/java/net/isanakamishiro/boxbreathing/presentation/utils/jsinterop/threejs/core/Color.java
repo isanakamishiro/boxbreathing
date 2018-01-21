@@ -5,14 +5,16 @@
  */
 package net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.core;
 
-import de.pesse.gwt.jsinterop.threeJs.ThreeJsStatics;
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsType;
+import lombok.Builder;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.PackageInfo;
 
 /**
  *
  * @author isana
  */
-@JsType(isNative = true, namespace = ThreeJsStatics.PACKAGE_NAME)
+@JsType(isNative = true, namespace = PackageInfo.THREEJS_PACKAGE_NAME)
 public class Color {
 
     public boolean isColor;
@@ -35,4 +37,8 @@ public class Color {
 
     public native void copy(Color color);
 
+    @JsOverlay
+    public static Color valueOf(long color) {
+        return new Color(color);
+    }
 }

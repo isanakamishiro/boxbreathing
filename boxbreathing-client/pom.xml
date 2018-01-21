@@ -387,12 +387,12 @@
         </dependency>
 
         <!--gwt-jsinterop-threejs-->
-        <dependency>
+<!--        <dependency>
             <groupId>de.pesse.gwt.jsinterop.threejs</groupId>
             <artifactId>jsinterop-threejs</artifactId>
             <version>0.0.2-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
 
         <!--Elemental2-->
         <dependency>

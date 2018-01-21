@@ -5,16 +5,18 @@
  */
 package net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.loader;
 
-import de.pesse.gwt.jsinterop.threeJs.ThreeJsStatics;
-import de.pesse.gwt.jsinterop.threeJs.objects.Mesh;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.core.XMLHttpRequest;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.core.Error;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsType;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.PackageInfo;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.objects.Mesh;
 
 /**
  *
  * @author isana
  */
-@JsType(namespace = ThreeJsStatics.PACKAGE_NAME, isNative = true)
+@JsType(namespace = PackageInfo.THREEJS_PACKAGE_NAME, isNative = true)
 public class MMDLoader {
 
     public native void load(String modelFile, String[] vmdFiles,
@@ -40,7 +42,7 @@ public class MMDLoader {
     @FunctionalInterface
     public static interface OnErrorCallback {
 
-        void onError(LoaderError error);
+        void onError(Error error);
     }
 
 }

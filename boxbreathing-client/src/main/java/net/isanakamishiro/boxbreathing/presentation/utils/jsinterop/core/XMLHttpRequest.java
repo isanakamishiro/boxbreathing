@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.loader;
+package net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.core;
 
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
@@ -12,8 +12,10 @@ import jsinterop.annotations.JsType;
  *
  * @author isana
  */
-@JsType(namespace = JsPackage.GLOBAL, isNative = true, name = "Error")
-public class LoaderError {
-    public String message;
-    public String name;
+@JsType(namespace = JsPackage.GLOBAL, isNative = true)
+public class XMLHttpRequest {
+
+    public int loaded;
+    public int total;
+
 }
