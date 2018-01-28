@@ -16,6 +16,8 @@ import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.core
 @JsType(namespace = PackageInfo.THREEJS_PACKAGE_NAME, isNative = true)
 public class DirectionalLight extends Light {
 
+    public DirectionalLightShadow shadow;
+
     public DirectionalLight() {
     }
 

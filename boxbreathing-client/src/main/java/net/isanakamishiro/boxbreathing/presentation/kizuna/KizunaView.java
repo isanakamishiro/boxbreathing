@@ -143,9 +143,9 @@ public class KizunaView extends ViewImpl implements KizunaPresenter.MyView {
         }, onProgress, onError);
 
         // Renderer
-        renderer = new WebGLRenderer(WebGLRenderer.WebGLInitializeParameters.builder()
+        renderer = WebGLRenderer.builder()
                 .canvas(canvas)
-                .build());
+                .build();
 
         renderer.setPixelRatio(Window.getDevicePixelRatio());
         renderer.setSize(w, h);

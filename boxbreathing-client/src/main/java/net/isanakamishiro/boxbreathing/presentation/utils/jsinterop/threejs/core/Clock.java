@@ -30,7 +30,7 @@ public class Clock {
      * @return
      */
     @JsProperty
-    public native double getStartTime();
+    public native int getStartTime();
 
     /**
      * Holds the time at which the clock's start, getElapsedTime or getDelta
@@ -39,14 +39,14 @@ public class Clock {
      * @return
      */
     @JsProperty
-    public native double getOldTime();
+    public native int getOldTime();
 
     /**
      * Keeps track of the total time that the clock has been running.
      *
      * @return
      */
-    public native double getElapsedTime();
+    public native int getElapsedTime();
 
     /**
      * Whether the clock is running or not.
@@ -72,5 +72,5 @@ public class Clock {
      *
      * @return
      */
-    public native double getDelta();
+    public native int getDelta();
 }

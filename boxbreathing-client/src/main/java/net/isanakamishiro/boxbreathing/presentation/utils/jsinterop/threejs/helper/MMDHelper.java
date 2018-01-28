@@ -7,13 +7,15 @@ package net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.hel
 
 import jsinterop.annotations.JsType;
 import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.PackageInfo;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.cameras.Camera;
 import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.objects.Mesh;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.objects.VmdObject;
 
 /**
  *
  * @author isana
  */
-@JsType(namespace = PackageInfo.THREEJS_PACKAGE_NAME,  isNative = true)
+@JsType(namespace = PackageInfo.THREEJS_PACKAGE_NAME, isNative = true)
 public class MMDHelper {
 
     public native void add(Mesh mesh);
@@ -22,10 +24,15 @@ public class MMDHelper {
 
     public native void setPhysics(Mesh mesh);
 
+    public native void setCamera(Camera camera);
+
+    public native void setCameraAnimation(Camera camera);
+
     public native void unifyAnimationDuration(AnimationParam param);
 
     public native void animate(double delta);
 
+    // TODO : Paramまわりは動作確認含めて見直す
     @JsType
     public static class AnimationParam {
 

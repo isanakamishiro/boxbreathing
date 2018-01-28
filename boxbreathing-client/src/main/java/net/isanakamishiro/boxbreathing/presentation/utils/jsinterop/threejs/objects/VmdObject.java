@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.isanakamishiro.boxbreathing.presentation.mirai.ui;
+package net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.objects;
+
+import jsinterop.annotations.JsType;
 
 /**
  *
  * @author isana
  */
-public interface Animation {
-    public void pause();
+@JsType
+public class VmdObject {
 
-    public void play();
-
-    public void reset();
 }
