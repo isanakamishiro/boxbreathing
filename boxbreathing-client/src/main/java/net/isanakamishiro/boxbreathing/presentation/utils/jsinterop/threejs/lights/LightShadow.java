@@ -124,7 +124,7 @@ public class LightShadow {
      * the scene; objects behind other objects from the light's perspective will
      * be in shadow.
      */
-    @JsProperty(name = "camera")
-    public native Camera getCamera();
+//    @JsProperty(name = "camera")
+//    public native Camera getCamera();
 
 }

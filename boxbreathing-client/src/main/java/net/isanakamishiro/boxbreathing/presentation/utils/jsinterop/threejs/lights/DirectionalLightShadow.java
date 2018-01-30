@@ -5,8 +5,10 @@
  */
 package net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.lights;
 
+import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.PackageInfo;
+import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.cameras.OrthographicCamera;
 
 /**
  * This is used internally by DirectionalLights for calculating shadows.
@@ -70,6 +72,8 @@ public class DirectionalLightShadow extends LightShadow {
      * The default is an OrthographicCamera with left and bottom set to -5,
      * right and top set to 5, the near clipping plane at 0.5 and the far
      * clipping plane at 500.
+     * @return
      */
-//    public native Camera getCamera() {}
+    @JsProperty(name = "camera")
+    public native OrthographicCamera camera();
 }

@@ -267,16 +267,28 @@ public class Object3D {
 //
 //Converts the vector from local space to world space.
 //#
-//.lookAt ( vector )
-//#
-//.lookAt ( x, y, z )
-//vector - A vector representing a position in world space.
-//
-//Optionally, the x, y and z components of the world space position.
-//
-//Rotates the object to face a point in world space.
-//
-//This method does not support objects with rotated and/or translated parent(s).
+    /**
+     * Rotates the object to face a point in world space.
+     *
+     * This method does not support objects with rotated and/or translated
+     * parent(s).
+     *
+     * @param vector
+     */
+    public native void lookAt(Vector3 vector);
+
+    /**
+     * Rotates the object to face a point in world space.
+     *
+     * This method does not support objects with rotated and/or translated
+     * parent(s).
+     *
+     * @param x
+     * @param y
+     * @param z
+     */
+    public native void lookAt(double x, double y, double z);
+
 //#
 //.raycast ( raycaster, intersects )
 //Abstract (empty) method to get intersections between a casted ray and this object. Subclasses such as Mesh, Line, and Points implement this method in order to use raycasting.

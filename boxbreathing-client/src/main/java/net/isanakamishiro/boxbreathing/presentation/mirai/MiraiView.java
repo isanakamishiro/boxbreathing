@@ -1,13 +1,12 @@
 package net.isanakamishiro.boxbreathing.presentation.mirai;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtplatform.mvp.client.ViewImpl;
 import elemental2.dom.HTMLDivElement;
+import gwt.material.design.client.ui.MaterialLoader;
 import gwt.material.design.client.ui.MaterialPanel;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -15,6 +14,7 @@ import io.reactivex.Observable;
 import javax.inject.Inject;
 import net.isanakamishiro.boxbreathing.presentation.StyleConfigurator;
 import net.isanakamishiro.boxbreathing.presentation.mirai.ui.MMDStage;
+import net.isanakamishiro.boxbreathing.presentation.mirai.ui.Stage;
 import net.isanakamishiro.boxbreathing.presentation.utils.jsinterop.threejs.loader.MMDLoader;
 import net.isanakamishiro.boxbreathing.resources.message.AppMessages;
 
@@ -25,10 +25,15 @@ public class MiraiView extends ViewImpl implements MiraiPresenter.MyView {
     }
 
     private static final String MODEL_FILE = "models/mirai/MiraiAkari_v1.0.pmx";
-    private static final String FLOOR_FILE = "models/stage/grid.pmx";
-    private static final String DOME_FILE = "models/stage/dome01.pmx";
+//    private static final String FLOOR_FILE = "models/stage/grid.pmx";
+    private static final String FLOOR_FILE = "models/stage/tenmangu/tenmangu_shadow.pmx";
 
+    private static final String DOME_FILE = "models/stage/SkydomeK2/Dome_K201.pmx";
+
+//    private static final String[] POSE_FILES = {"models/vmds/wavefile_v2.vmd"};
     private static final String[] POSE_FILES = {"models/vmds/nekomimi_mikuv2.vmd"};
+//    private static final String[] POSE_FILES = {"models/vmds/nosho/miku.vmd"};
+//    private static final String CAMERA_FILE = "models/vmds/wavefile_camera.vmd";
     private static final String CAMERA_FILE = "models/vmds/nekomimi_camera.vmd";
 
     @UiField
@@ -37,10 +42,10 @@ public class MiraiView extends ViewImpl implements MiraiPresenter.MyView {
     @UiField
     HTMLDivElement canvasPanel;
 
-    MMDStage stage;
-
     @UiField(provided = true)
     AppMessages messages;
+
+    private MMDStage stage;
 
     private final StyleConfigurator styleConfigurator;
 
@@ -56,27 +61,53 @@ public class MiraiView extends ViewImpl implements MiraiPresenter.MyView {
 
     private Completable initMMDStage() {
         return Completable.create(emitter -> {
+            showLoadingPane();
+
             stage = new MMDStage(new MMDLoader());
 
-            stage.resize(canvasPanel.clientWidth, canvasPanel.clientHeight);
-            com.google.gwt.user.client.Window.addResizeHandler(event
-                    -> stage.resize(canvasPanel.clientWidth, canvasPanel.clientHeight));
-
-            canvasPanel.appendChild(stage.getStatDomElement());
-            canvasPanel.appendChild(stage.canvas());
+            com.google.gwt.user.client.Window.addResizeHandler(e -> resizeCanvas());
 
             Observable.concatArray(
                     stage.loadDome(DOME_FILE),
+                    //                    stage.loadCharacter(MODEL_FILE),
                     Observable.concat(stage.loadCharacter(MODEL_FILE), stage.loadPose(POSE_FILES)),
                     stage.loadFloor(FLOOR_FILE),
-                    stage.loadPose(POSE_FILES),
                     stage.loadCamera(CAMERA_FILE)
-            ).map(v -> v.toString()).subscribe(GWT::log, this::logError, emitter::onComplete);
+            ).map(v -> v.toString()).subscribe(GWT::log, this::logError,
+                    () -> {
+                        getStage().adjustCharacterPosition(0, 0.8, 0);
+                        resizeCanvas();
+                        hideLoadingPane();
+                        showCanvas();
+
+                        emitter.onComplete();
+                    });
         });
+    }
+
+    private Stage getStage() {
+        return stage;
     }
 
     private void logError(Throwable e) {
         GWT.log("view error : " + e.getMessage());
+    }
+
+    private void showLoadingPane() {
+        MaterialLoader.loading(true);
+    }
+
+    private void hideLoadingPane() {
+        MaterialLoader.loading(false);
+    }
+
+    private void showCanvas() {
+        canvasPanel.appendChild(getStage().stats());
+        canvasPanel.appendChild(getStage().canvas());
+    }
+
+    private void resizeCanvas() {
+        getStage().resizeCanvas(canvasPanel.clientWidth, canvasPanel.clientHeight);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class MMDStage implements Stage {
     public static enum ModelOption {
 
         CHARACTER(true, true, false),
-        FLOOR(false, false, true),
+        FLOOR(false, true, true),
         DOME(false, false, true);
 
         private final boolean physics;
@@ -55,8 +55,8 @@ public class MMDStage implements Stage {
         }
     }
 
-    private int canvasWidth = 0;
-    private int canvasHeight = 0;
+    private int canvasWidth = 1;
+    private int canvasHeight = 1;
 
     private final MMDLoader loader;
 
@@ -153,7 +153,11 @@ public class MMDStage implements Stage {
         light1.castShadow = true;
         light1.shadow.mapSize.x = 1024;
         light1.shadow.mapSize.y = 1024;
-//        light1.shadow.getCamera().
+        light1.shadow.camera().right = 40;
+        light1.shadow.camera().top = 40;
+        light1.shadow.camera().left = -40;
+        light1.shadow.camera().bottom = -40;
+
         // Model specific Shadow parameters
         light1.shadow.bias = -0.001;
 
@@ -170,7 +174,8 @@ public class MMDStage implements Stage {
                 mmdCharacter.castShadow = ModelOption.CHARACTER.castShadow();
                 mmdCharacter.receiveShadow = ModelOption.CHARACTER.receiveShadow();
 
-                scene.add(mmdCharacter);
+//                mmdCharacter.position.y = 1;
+                getScene().add(mmdCharacter);
                 mmdHelper.add(mmdCharacter);
                 mmdHelper.setPhysics(mmdCharacter);
 
@@ -187,9 +192,9 @@ public class MMDStage implements Stage {
         return Observable.create(emitter -> {
             getLoader().loadVmds(motionFiles, obj -> {
 
-                if (mmdCharacter != null) {
-                    loader.pourVmdIntoModel(mmdCharacter, obj);
-                    mmdHelper.setAnimation(mmdCharacter);
+                if (getCharacter() != null) {
+                    getLoader().pourVmdIntoModel(getCharacter(), obj);
+                    mmdHelper.setAnimation(getCharacter());
                 }
 
                 emitter.onComplete();
@@ -209,7 +214,7 @@ public class MMDStage implements Stage {
                 mmdFloor.castShadow = ModelOption.FLOOR.castShadow();
                 mmdFloor.receiveShadow = ModelOption.FLOOR.receiveShadow();
 
-                scene.add(mmdFloor);
+                getScene().add(mmdFloor);
                 mmdHelper.add(mmdFloor);
 
                 emitter.onComplete();
@@ -229,7 +234,7 @@ public class MMDStage implements Stage {
                 mmdDome.castShadow = ModelOption.DOME.castShadow();
                 mmdDome.receiveShadow = ModelOption.DOME.receiveShadow();
 
-                scene.add(mmdDome);
+                getScene().add(mmdDome);
                 mmdHelper.add(mmdDome);
 
                 emitter.onComplete();
@@ -246,9 +251,9 @@ public class MMDStage implements Stage {
             getLoader().loadVmds(new String[]{cameraFile}, obj -> {
 
                 vmdCamera = obj;
-                mmdHelper.setCamera(camera);
-                getLoader().pourVmdIntoCamera(camera, vmdCamera);
-                mmdHelper.setCameraAnimation(camera);
+                mmdHelper.setCamera(getCamera());
+                getLoader().pourVmdIntoCamera(getCamera(), vmdCamera);
+                mmdHelper.setCameraAnimation(getCamera());
 
                 emitter.onComplete();
 
@@ -259,55 +264,14 @@ public class MMDStage implements Stage {
     }
 
     @Override
-    public HTMLCanvasElement canvas() {
-        return canvasElement;
-    }
-
-    private MMDLoader getLoader() {
-        return loader;
-    }
-
-    public HTMLCanvasElement getCanvasElement() {
-        return canvasElement;
-    }
-
-    public HTMLElement getStatDomElement() {
-        return stats.domElement;
-    }
-
-    private void animate() {
-        callback = () -> {
-            if (pause) {
-                return;
-            }
-            Window.requestAnimationFrame(callback);
-
-            stats.begin();
-            render();
-            stats.end();
-        };
-
-        Window.requestAnimationFrame(callback);
-    }
-
-    private void render() {
-        mmdHelper.animate(clock.getDelta());
-
-        effect.render(scene, camera);
-    }
-
-    public void resize(int width, int height) {
+    public void resizeCanvas(int width, int height) {
         this.canvasWidth = width;
         this.canvasHeight = height;
 
-        camera.aspect = (float) width / (float) height;
-        camera.updateProjectionMatrix();
+        getCamera().aspect = (float) width / (float) height;
+        getCamera().updateProjectionMatrix();
 
         renderer.setSize(width, height);
-    }
-
-    public Scene getScene() {
-        return scene;
     }
 
     @Override
@@ -328,6 +292,60 @@ public class MMDStage implements Stage {
     @Override
     public void reset() {
         clock.stop();
+    }
+
+    @Override
+    public HTMLCanvasElement canvas() {
+        return canvasElement;
+    }
+
+    @Override
+    public HTMLElement stats() {
+        return stats.domElement;
+    }
+
+    @Override
+    public void adjustCharacterPosition(double x, double y, double z) {
+        if (getCharacter() != null) {
+            getCharacter().position.set(x, y, z);
+        }
+    }
+
+    private MMDLoader getLoader() {
+        return loader;
+    }
+
+    private Scene getScene() {
+        return scene;
+    }
+
+    private PerspectiveCamera getCamera() {
+        return camera;
+    }
+
+    private Mesh getCharacter() {
+        return mmdCharacter;
+    }
+
+    private void animate() {
+        callback = () -> {
+            if (pause) {
+                return;
+            }
+            Window.requestAnimationFrame(callback);
+
+            stats.begin();
+            render();
+            stats.end();
+        };
+
+        Window.requestAnimationFrame(callback);
+    }
+
+    private void render() {
+        mmdHelper.animate(clock.getDelta());
+
+        effect.render(getScene(), getCamera());
     }
 
     private Progress convertXhrToProgress(final String resourceName, XMLHttpRequest xhr) {

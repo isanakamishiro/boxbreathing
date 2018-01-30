@@ -6,6 +6,7 @@
 package net.isanakamishiro.boxbreathing.presentation.mirai.ui;
 
 import elemental2.dom.HTMLCanvasElement;
+import elemental2.dom.HTMLElement;
 import io.reactivex.Observable;
 
 /**
@@ -26,6 +27,11 @@ public interface Stage extends Animation {
 
     public HTMLCanvasElement canvas();
 
+    public HTMLElement stats();
 
+
+    public void adjustCharacterPosition(double x, double y, double z);
+
+    public void resizeCanvas(int width, int height);
 
 }
