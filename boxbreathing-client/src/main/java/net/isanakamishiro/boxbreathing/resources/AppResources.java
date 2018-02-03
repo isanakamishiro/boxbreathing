@@ -50,4 +50,5 @@ public interface AppResources extends ClientBundle {
 
     @Source("css/animator.gss")
     AnimatorStyle animator();
+
 }

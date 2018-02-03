@@ -25,10 +25,10 @@ public class MiraiView extends ViewImpl implements MiraiPresenter.MyView {
     }
 
     private static final String MODEL_FILE = "models/mirai/MiraiAkari_v1.0.pmx";
-//    private static final String FLOOR_FILE = "models/stage/grid.pmx";
-    private static final String FLOOR_FILE = "models/stage/tenmangu/tenmangu_shadow.pmx";
+    private static final String FLOOR_FILE = "models/stage/grid.pmx";
+//    private static final String FLOOR_FILE = "models/stage/tenmangu/tenmangu_shadow.pmx";
 
-    private static final String DOME_FILE = "models/stage/SkydomeK2/Dome_K201.pmx";
+    private static final String DOME_FILE = "models/stage/SkydomeK2/Dome_K203.pmx";
 
 //    private static final String[] POSE_FILES = {"models/vmds/wavefile_v2.vmd"};
     private static final String[] POSE_FILES = {"models/vmds/nekomimi_mikuv2.vmd"};
@@ -41,6 +41,9 @@ public class MiraiView extends ViewImpl implements MiraiPresenter.MyView {
 
     @UiField
     HTMLDivElement canvasPanel;
+
+    @UiField
+    HTMLDivElement loadingPanel;
 
     @UiField(provided = true)
     AppMessages messages;
@@ -75,7 +78,7 @@ public class MiraiView extends ViewImpl implements MiraiPresenter.MyView {
                     stage.loadCamera(CAMERA_FILE)
             ).map(v -> v.toString()).subscribe(GWT::log, this::logError,
                     () -> {
-                        getStage().adjustCharacterPosition(0, 0.8, 0);
+                        getStage().adjustCharacterPosition(0, 0.7, 0);
                         resizeCanvas();
                         hideLoadingPane();
                         showCanvas();
@@ -94,11 +97,14 @@ public class MiraiView extends ViewImpl implements MiraiPresenter.MyView {
     }
 
     private void showLoadingPane() {
-        MaterialLoader.loading(true);
+        loadingPanel.style.display = "block";
+
+//        MaterialLoader.loading(true);
     }
 
     private void hideLoadingPane() {
-        MaterialLoader.loading(false);
+        loadingPanel.style.display = "none";
+//        MaterialLoader.loading(false);
     }
 
     private void showCanvas() {

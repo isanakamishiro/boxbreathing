@@ -9,8 +9,18 @@
 
     <m:MaterialPanel ui:field="mainPanel" backgroundColor="BLUE_LIGHTEN_2" height="100%">
         <g:HTMLPanel height="100%">
-            <div ui:field="canvasPanel" style="height:100%">
+            <div ui:field="loadingPanel">
+                <div id="load">
+                    <div>G</div>
+                    <div>N</div>
+                    <div>I</div>
+                    <div>D</div>
+                    <div>A</div>
+                    <div>O</div>
+                    <div>L</div>
+                </div>
             </div>
+            <div ui:field="canvasPanel" style="height:100%"></div>
         </g:HTMLPanel>
     </m:MaterialPanel>
 

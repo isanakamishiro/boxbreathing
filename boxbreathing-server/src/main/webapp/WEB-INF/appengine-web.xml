@@ -15,7 +15,7 @@
         <include path="/**.jpg" />
         <include path="/**.jpeg" />
         <include path="/**.gif" />
-        <include path="/**.bmp" />
+        <include path="/**.bmp" expiration="1d" />
 
         <include path="/**.ico" expiration="1d" />
 
@@ -27,6 +27,7 @@
         <include path="/**.pmd" expiration="1d" />
         <include path="/**.pmx" expiration="1d" />
         <include path="/**.vmd" expiration="1d" />
+        <include path="/**.x" expiration="1d" />
 
     </static-files>
 
